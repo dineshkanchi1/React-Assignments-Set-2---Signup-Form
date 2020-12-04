@@ -12,28 +12,74 @@ const App = () => {
     userName: ""
   });
   const handleNameChange = (event) => {
-    setState({ name: event.target.value });
+    const temp = {
+      name: event.target.value,
+      email: state.email,
+      gender: state.gender,
+      phNo: state.phNo,
+      password: state.password,
+      errorMessage: state.errorMessage,
+      userName: state.userName
+    };
+    setState(temp);
   };
 
   const handleEmailChange = (event) => {
-    setState({ email: event.target.value });
+    const temp = {
+      name: state.name,
+      email: event.target.value,
+      gender: state.gender,
+      phNo: state.phNo,
+      password: state.password,
+      errorMessage: state.errorMessage,
+      userName: state.userName
+    };
+    setState(temp);
   };
 
   const handlePhoneNoChange = (event) => {
-    setState({ phNo: event.target.value });
+    const temp = {
+      name: state.name,
+      email: state.email,
+      gender: state.gender,
+      phNo: event.target.value,
+      password: state.password,
+      errorMessage: state.errorMessage,
+      userName: state.userName
+    };
+    setState(temp);
   };
 
   const handlePasswordChange = (event) => {
-    setState({ password: event.target.value });
+    const temp = {
+      name: state.name,
+      email: state.email,
+      gender: state.gender,
+      phNo: state.phNo,
+      password: event.target.value,
+      errorMessage: state.errorMessage,
+      userName: state.userName
+    };
+    setState(temp);
   };
 
   const handleChangeValue = (event) => {
-    setState({ gender: event.target.value });
+    const temp = {
+      name: state.name,
+      email: state.email,
+      gender: event.target.value,
+      phNo: state.phNo,
+      password: state.password,
+      errorMessage: state.errorMessage,
+      userName: state.userName
+    };
+    setState(temp);
   };
 
-  handleSubmit = () => {
+  const handleSubmit = () => {
     const alphanumeric = /^[0-9a-zA-Z ]+$/;
     const numbers = /^\d+$/;
+    let temp;
     if (
       state.name === "" ||
       state.email === "" ||
@@ -41,37 +87,82 @@ const App = () => {
       state.gender === "" ||
       state.password === ""
     ) {
-      setState({ errorMessage: "All fields are mandatory", userName: "" });
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
+        errorMessage: "All fields are mandatory",
+        userName: ""
+      };
+      setState(temp);
       return;
     }
     if (!state.name.match(alphanumeric)) {
-      setState({ errorMessage: "Name is not alphanumeric", userName: "" });
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
+        errorMessage: "Name is not alphanumeric",
+        userName: ""
+      };
+      setState(temp);
       return;
     }
     if (state.email.indexOf("@") < 1) {
-      setState({ errorMessage: "Email must contain @", userName: "" });
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
+        errorMessage: "Email must contain @",
+        userName: ""
+      };
+      setState(temp);
       return;
     }
 
     if (!state.gender) {
-      setState({
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
         errorMessage: "Please identify as male, female or others",
         userName: ""
-      });
+      };
+      setState(temp);
       return;
     }
     if (!numbers.test(state.phNo)) {
-      setState({
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
         errorMessage: "Phone Number must contain only numbers",
         userName: ""
-      });
+      };
+      setState(temp);
       return;
     }
     if (state.password.length < 6) {
-      setState({
+      temp = {
+        name: state.name,
+        email: event.target.value,
+        gender: state.gender,
+        phNo: state.phNo,
+        password: state.password,
         errorMessage: "Password must contain atleast 6 letters",
         userName: ""
-      });
+      };
+      setState(temp);
       return;
     }
     const user = state.email.substring(0, state.email.indexOf("@"));
@@ -96,7 +187,7 @@ const App = () => {
         name="name"
         placeholder="Name"
         value={state.name}
-        onChange={this.handleNameChange}
+        onChange={handleNameChange}
       />
       <input
         data-testid="email"
@@ -104,14 +195,14 @@ const App = () => {
         name="email"
         placeholder="Email"
         value={state.email}
-        onChange={this.handleEmailChange}
+        onChange={handleEmailChange}
       />
       <input
         data-testid="gender"
         type="text"
         name="gender"
         value={state.gender}
-        onChange={this.handleChangeValue}
+        onChange={handleChangeValue}
       />
       <input
         data-testid="phoneNumber"
@@ -119,7 +210,7 @@ const App = () => {
         name="phoneNumber"
         placeholder="Phone Number"
         value={state.phNo}
-        onChange={this.handlePhoneNoChange}
+        onChange={handlePhoneNoChange}
       />
       <input
         data-testid="password"
@@ -127,9 +218,9 @@ const App = () => {
         name="password"
         placeholder="Password"
         value={state.password}
-        onChange={this.handlePasswordChange}
+        onChange={handlePasswordChange}
       />
-      <button data-testid="submit" onClick={this.handleSubmit}>
+      <button data-testid="submit" onClick={handleSubmit}>
         Submit
       </button>
     </div>
